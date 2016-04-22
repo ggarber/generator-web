@@ -11,10 +11,9 @@ module.exports = generators.Base.extend({
 
         this.prompt([
             {
-                type: 'list',
-                name: 'builder',
-                message: 'grunt or gulp?',
-                choices: ['grunt', 'gulp']
+                type: 'confirm',
+                name: 'website',
+                message: 'include website components (static folder, tokbox theme, js tools)?'
             },
             {
                 type: 'confirm',
@@ -35,6 +34,10 @@ module.exports = generators.Base.extend({
             this.directory('typings', 'typings');
             this.directory('views', 'views');
             this.directory('fixtures', 'fixtures');
+            
+            if (this.answers.website) {
+                
+            }
         },
         app: function () {
             this.fs.copyTpl(
@@ -55,13 +58,7 @@ module.exports = generators.Base.extend({
             var generator = this;
             var files = ['app.ts', 'tsd.json'];
 
-            if (this.answers.builder === 'grunt') {
-                files.push('Gruntfile.js')
-            }
-
-            if (this.answers.builder === 'gulp') {
-                files.push('gulpfile.js')
-            }
+            files.push('gulpfile.js')
 
             _.each(
                 files,
